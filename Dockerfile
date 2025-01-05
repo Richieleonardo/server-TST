@@ -1,23 +1,49 @@
-# Use the official Node.js image
-FROM node:22.11.0
+# Use Ubuntu 22.04 as the base image
+FROM ubuntu:22.04
 
-# Install git
-RUN apt-get update && apt-get install -y git
+# Set environment to avoid interactive prompts during installation
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Set the working directory
-WORKDIR /app
+# Update the package list and install prerequisites
+RUN apt-get update && apt-get install -y \
+    sudo \
+    curl \
+    gnupg \
+    build-essential \
+    git \
+    && apt-get clean
 
-# Copy package.json and package-lock.json
+# Add Node.js 22.x repository
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+
+# Install Node.js 22.x and npm
+RUN apt-get install -y nodejs
+
+# Verify installation
+RUN node -v && npm -v
+
+RUN npm install -g pm2
+
+# Create a non-root user named 'docker' with sudo access
+RUN useradd -ms /bin/bash docker \
+    && echo "docker:docker" | chpasswd \
+    && usermod -aG sudo docker
+
+# Switch to the 'docker' user
+USER docker
+
+# Set working directory
+WORKDIR /home/docker
+
 RUN git clone https://github.com/Richieleonardo/server-TST.git
 
-# Install dependencies
-RUN npm install
+RUN cd server-TST && npm install
 
-# Copy the rest of the application code
-COPY . .
+RUN pm2 
+RUN pm2 start server-TST/server.js
 
-# Expose the desired port
+# Expose a port (optional, for running applications)
 EXPOSE 8071
 
-# Start the application
-CMD ["npm", "start"]
+# Default command
+CMD [ "bash" ]
