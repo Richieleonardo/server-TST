@@ -5,7 +5,7 @@ FROM node:22.11.0
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+RUN git clone https://github.com/Richieleonardo/server-TST.git
 
 # Install dependencies
 RUN npm install
@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose the desired port
-EXPOSE 3000
+EXPOSE 8071
 
 # Start the application
-CMD ["npm", "run", "devStart"]
+CMD ["npm", "start"]
