@@ -1,6 +1,9 @@
 # Use the official Node.js image
 FROM node:22.11.0
 
+# Install git
+RUN apt-get update && apt-get install -y git
+
 # Set the working directory
 WORKDIR /app
 
