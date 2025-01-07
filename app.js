@@ -15,11 +15,7 @@ app.use(cors({
 }));
 
 // Handle preflight requests
-app.options('*', cors({
-    origin: '*',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-type', '  Authorization', 'furina-is-so-beautiful'],
-}));
+app.options('*', cors());
 
 // Connect to database
 connectDB();

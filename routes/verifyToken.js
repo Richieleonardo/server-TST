@@ -20,40 +20,4 @@ function verifyToken(req, res, next) {
     });
 }
 
-
-// async function verifyToken() {
-//     const token = localStorage.getItem('token');
-  
-//     if (!token) {
-//         alert('You are not logged in. Redirecting to login page.');
-//         window.location.href = '/login.html'; // Redirect to login page
-//         return;
-//     }
-  
-//     try {
-//         const response = await fetch('http://localhost:3000/auth/chat', {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'Authorization': `Bearer ${token}`, // Include the token
-//             },
-//         });
-  
-//         if (response.ok) {
-//             // Token is valid, user can access the chat page
-//             const data = await response.json();
-//             console.log('Chat data:', data);
-//             // Proceed to render the chat page
-//         } else {
-//             // Token invalid or expired
-//             alert('Session expired or unauthorized access. Please log in again.');
-//             window.location.href = 'login.html';
-//         }
-//     } catch (error) {
-//         console.error('Error:', error);
-//         alert('An error occurred while accessing the chat page.');
-//         window.location.href = 'login.html';
-//     }
-// }
-
 module.exports = verifyToken;
