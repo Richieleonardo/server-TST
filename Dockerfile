@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     gnupg \
     build-essential \
     git \
+    nano \
     && apt-get clean
 
 # Add Node.js 22.x repository
@@ -22,6 +23,7 @@ RUN apt-get install -y nodejs
 # Verify installation
 RUN node -v && npm -v
 
+# Install PM2 globally
 RUN npm install -g pm2
 
 # Create a non-root user named 'docker' with sudo access
@@ -35,15 +37,15 @@ USER docker
 # Set working directory
 WORKDIR /home/docker
 
+# Clone the repository
 RUN git clone https://github.com/Richieleonardo/server-TST.git
 
-RUN cd server-TST && npm install
-
-RUN pm2 
-RUN pm2 start server-TST/server.js
+# Change to the project directory and install dependencies
+WORKDIR /home/docker/server-TST
+RUN npm install
 
 # Expose a port (optional, for running applications)
 EXPOSE 8071
 
-# Default command
-CMD [ "bash" ]
+# Use pm2-runtime to run the server in the foreground
+CMD ["pm2-runtime", "start", "server.js"]
