@@ -9,7 +9,7 @@ require('dotenv').config();
 const httpServer = createServer(app);
 const io = new Server (httpServer, {
     cors: {
-        origin: ['http://localhost:8080', 'https://admin.socket.io'],
+        origin: ['*'],
         methods: ['GET', 'POST'],
         credentials: true,
     },
@@ -41,21 +41,21 @@ httpServer.listen(PORT, () => {
 
 // LATER USE
 //namespace
-const userIo = io.of('/user');
-userIo.on('connection', socket => {
-    console.log(`connected to user namespace ${socket.username}`);
-});
+// const userIo = io.of('/user');
+// userIo.on('connection', socket => {
+//     console.log(`connected to user namespace ${socket.username}`);
+// });
 
-//user
-userIo.use((socket, next) => {
-    if (socket.handshake.auth.token) {
-        socket.username = getUsernameFromToken(socket.handshake.auth.token);
-        next();
-    }
-    else{
-        next(new Error('Please send token'));
-    }
-});
+// //user
+// userIo.use((socket, next) => {
+//     if (socket.handshake.auth.token) {
+//         socket.username = getUsernameFromToken(socket.handshake.auth.token);
+//         next();
+//     }
+//     else{
+//         next(new Error('Please send token'));
+//     }
+// });
 
 //userfunction
 function getUsernameFromToken(token){
