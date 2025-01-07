@@ -8,15 +8,15 @@ const apiRoutes = require('./routes/encrypt');
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:8080',
+    origin: '*',
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-type', 'Authorization', 'furina-is-so-beautiful'],
-    credentials: true,
+    credentials: false,
 }));
 
 // Handle preflight requests
 app.options('*', cors({
-    origin: 'http://localhost:8080',
+    origin: '*',
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-type', '  Authorization', 'furina-is-so-beautiful'],
 }));
