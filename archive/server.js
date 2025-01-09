@@ -2,7 +2,7 @@ const { instrument } = require('@socket.io/admin-ui');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
 
-const app = require('./app');
+const app = require('../app');
 
 require('dotenv').config();
 
