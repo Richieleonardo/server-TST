@@ -4,6 +4,10 @@ const connectDB = require('./database/db');
 const authRoutes = require('./routes/auth');
 const apiRoutes = require('./routes/encrypt');
 
+// Swagger documentation
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpecs = require('./swagger/swaggerConfig');
+
 // Initialize
 const app = express();
 
@@ -24,6 +28,7 @@ app.use(express.json());
 
 app.use('/api', apiRoutes); // For Encryption
 app.use('/auth', authRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs)); // API documentation
 
 const PORT = 8071;
 app.listen(PORT, () => {

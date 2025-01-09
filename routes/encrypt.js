@@ -6,12 +6,34 @@ const router = express.Router();
 
 const API_BASE_URL = process.env.API_BASE_URL;
 
-router.get('/keys', async (req, res) => {
+// POST to retrieve API keys
+router.post('/keys', async (req, res) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/keys`);
-        res.json(response.data);
+        const { service_name, expires_in_days } = req.body;
+
+        if (!service_name || !expires_in_days) {
+            return res.status(400).json({
+                message: "Both 'service_name' and 'expires_in_days' are required.",
+            });
+        }
+
+        const response = await axios.post(
+            'https://furina-encryption-service.codebloop.my.id/api/keys',
+            { service_name, expires_in_days },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        res.status(200).json(response.data);
     } catch (error) {
-        res.status(error.response?.status || 500).send(error.message);
+        console.error('Error fetching API keys:', error.message);
+        res.status(error.response?.status || 500).json({
+            message: 'Failed to fetch API keys.',
+            error: error.response?.data || error.message,
+        });
     }
 });
 
