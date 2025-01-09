@@ -2,21 +2,12 @@ const { instrument } = require('@socket.io/admin-ui');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
 
-const fs = require('fs');
-const https = require('https');
-
-const privateKey =
-const certificate =
-
-const credentials = {key: privateKey, cert: certificate};
-
-const httpsServer = https.createServer(credentials, app);
 const app = require('./app');
 
 require('dotenv').config();
 
-// const httpServer = createServer(app);
-const io = new Server (httpsServer, {
+const httpServer = createServer(app);
+const io = new Server (httpServer, {
     cors: {
         origin: ['https://client-tst-production.up.railway.app'],
         methods: ['GET', 'POST'],
@@ -43,7 +34,7 @@ io.on('connection', socket => {
 
 //Start server
 const PORT = 8071;
-httpsServer.listen(PORT, () => {
+httpServer.listen(PORT, () => {
     console.log(`Server is running on https://raylaidchat.codebloop.my.id`);
 });
 

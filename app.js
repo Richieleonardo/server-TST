@@ -25,4 +25,8 @@ app.use(express.json());
 app.use('/api', apiRoutes); // For Encryption
 app.use('/auth', authRoutes);
 
+const PORT = 8072;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 module.exports = app;
