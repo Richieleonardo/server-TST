@@ -13,7 +13,6 @@ const options = {
             side socket.io untuk mengimplementasikan end-to-end encryption pada chat.`,
             contact: {
                 name: 'Richie Leonardo',
-                url: 'https://client-tst-production.up.railway.app',
                 email: '18222071@std.stei.itb.ac.id',
             }
         },
