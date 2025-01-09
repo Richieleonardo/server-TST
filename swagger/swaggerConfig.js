@@ -30,6 +30,34 @@ const options = {
                 },
             },
         },
+        schemas: {
+            User: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        description: 'Unique identifier for the user',
+                        example: 'cf6305a6-1f43-41fd-aa60-a8cd030ec342',
+                    },
+                    name: {
+                        type: 'string',
+                        description: 'Name of the user',
+                        example: 'johndoe',
+                    },
+                    email: {
+                        type: 'string',
+                        description: 'Email of the user',
+                        example: 'johndoe@example.com',
+                    },
+                    password: {
+                        type: 'string',
+                        description: 'Password of the user',
+                        example: 'password123',
+                    },    
+                    required: ['name', 'email', 'password'],
+                }
+            },
+        }
     },
     apis: ['./swagger/*.js', './routes/*.js'],
 };
