@@ -18,10 +18,10 @@ router.get('/keys', async (req, res) => {
 // ENCRYPT data
 router.post('/encrypt', async (req, res) => {
     try {
-        const apiKey = req.headers['furina-is-so-beautiful'];
+        const apiKey = req.headers['furina-encryption-service'];
         const response = await axios.post(`${API_BASE_URL}/encrypt`, req.body, {
             headers: {
-                'furina-is-so-beautiful': apiKey,
+                'furina-encryption-service': apiKey,
                 'Content-Type': 'application/json',
             },
         });
@@ -34,10 +34,10 @@ router.post('/encrypt', async (req, res) => {
 // DECRYPT data
 router.post('/decrypt', async (req, res) => {
     try {
-        const apiKey = req.headers['furina-is-so-beautiful'];
+        const apiKey = req.headers['furina-encryption-service'];
         const response = await axios.post(`${API_BASE_URL}/decrypt`, req.body, {
             headers: {
-                'furina-is-so-beautiful': apiKey,
+                'furina-encryption-service': apiKey,
                 'Content-Type': 'application/json',
             },
         });
