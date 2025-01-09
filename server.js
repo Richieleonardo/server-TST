@@ -2,14 +2,23 @@ const { instrument } = require('@socket.io/admin-ui');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
 
+const fs = require('fs');
+const https = require('https');
+
+const privateKey =
+const certificate =
+
+const credentials = {key: privateKey, cert: certificate};
+
+const httpsServer = https.createServer(credentials, app);
 const app = require('./app');
 
 require('dotenv').config();
 
-const httpServer = createServer(app);
-const io = new Server (httpServer, {
+// const httpServer = createServer(app);
+const io = new Server (httpsServer, {
     cors: {
-        origin: ['*'],
+        origin: ['https://client-tst-production.up.railway.app'],
         methods: ['GET', 'POST'],
         credentials: true,
     },
@@ -20,7 +29,7 @@ instrument(io, { auth: false });
 
 //when connect send chat (edit this)
 io.on('connection', socket => {
-
+    console.log('user connected');
     socket.on('set-id', (roomID) => {
         socket.join(roomID);
         console.log('room joined')
@@ -34,30 +43,12 @@ io.on('connection', socket => {
 
 //Start server
 const PORT = 8071;
-httpServer.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+httpsServer.listen(PORT, () => {
+    console.log(`Server is running on https://raylaidchat.codebloop.my.id`);
 });
 
 
-// LATER USE
-//namespace
-// const userIo = io.of('/user');
-// userIo.on('connection', socket => {
-//     console.log(`connected to user namespace ${socket.username}`);
-// });
-
-// //user
-// userIo.use((socket, next) => {
-//     if (socket.handshake.auth.token) {
-//         socket.username = getUsernameFromToken(socket.handshake.auth.token);
-//         next();
-//     }
-//     else{
-//         next(new Error('Please send token'));
-//     }
-// });
-
-//userfunction
-function getUsernameFromToken(token){
-    return token;   
-}
+// //userfunction
+// function getUsernameFromToken(token){
+//     return token;   
+// }
