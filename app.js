@@ -14,7 +14,7 @@ const app = express();
 app.use(cors({
     origin: '*',
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-type', 'Authorization', 'furina-is-so-beautiful'],
+    allowedHeaders: ['Content-type', 'Authorization', 'furina-encryption-service'],
     credentials: false,
 }));
 
