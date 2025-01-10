@@ -9,6 +9,13 @@ Repositori ini berisi kode sumber untuk aplikasi backend yang dibangun menggunak
 
 ---
 
+## Dokumentasi API
+
+Aplikasi ini mencakup dokumentasi API lengkap yang dapat diakses di:
+[https://raylaidchat.codebloop.my.id/api-docs/](https://raylaidchat.codebloop.my.id/api-docs/)
+
+---
+
 ## Gambaran Struktur File
 
 ```
@@ -53,12 +60,6 @@ Repositori ini berisi kode sumber untuk aplikasi backend yang dibangun menggunak
 
 ---
 
-## Dokumentasi API
-
-Aplikasi ini mencakup dokumentasi API lengkap yang dapat diakses di:
-[https://raylaidchat.codebloop.my.id/api-docs/](https://raylaidchat.codebloop.my.id/api-docs/)
-
----
 
 ## Deployment dengan Docker
 
